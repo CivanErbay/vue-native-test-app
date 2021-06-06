@@ -1,7 +1,26 @@
 <template>
   <view class="container">
-    <text class="text-color-primary">{{ message }}</text>
-    <button title="hannaaaaaaa" @press="exclaim" />
+    <image class="tamagotchi" :source="require('./assets/tamagotchi.png')" />
+
+ 
+      <text-input
+        :style="{
+          margin: 20,
+          height: 60,
+          width: 150,
+          borderColor: 'black',
+          borderWidth: 3,
+        }"
+        v-model="task"
+      />
+
+
+    <text @press="addTask" class="task">Add</text>
+    <view class="task-list">
+      <text v-for="task in taskList" :key="task">
+        {{ task }}
+      </text>
+    </view>
   </view>
 </template>
 
@@ -9,16 +28,15 @@
 export default {
   data() {
     return {
-      message: "Hello my Name is",
-      messageArray: ['',' Hanna ',' and ',' Civan ', 'and'],
-      messageCounter: 0
+      task: "",
+      taskList: [],
     };
   },
   methods: {
-    exclaim() {
-      if(this.messageCounter < 4) this.messageCounter += 1;
-      this.message += this.messageArray[this.messageCounter]
-    }
+    addTask() {
+      this.taskList.push(this.task);
+      this.task = ''
+    },
   },
 };
 </script>
@@ -26,12 +44,23 @@ export default {
 <style>
 .container {
   flex: 1;
-  background-color: green;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: rgb(187,187,187);
+}
+.tamagotchi {
+  height: 300;
+  width: 300;
+  margin-top: 30;
+}
+.task-wrapper {
   align-items: center;
   justify-content: center;
+  flex-direction: row;
+  padding-top: 30;
 }
-.text-color-primary {
-  color: black;
+.task {
   font-size: 30;
+  font-weight: bold;
 }
 </style>
